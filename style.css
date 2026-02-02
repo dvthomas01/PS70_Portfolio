@@ -2,9 +2,20 @@ body {
     font: 20px "Gill Sans", Verdana, sans-serif;
     line-height: 1.8;
     color: #000000;
-    background-color: #dcdcdc;
+
+  background: linear-gradient(120deg, #90D5FF 0%, #DAB1DA 50%, #FFC5D3 100%);
+    background-size: 300% 300%;
+    animation: gradientCycle 12s ease infinite;
     padding-top: 0px !important;
   }
+
+@keyframes gradientCycle {
+  0%{ background-position: 0% 50%; }
+  25%{ background-position: 50% 50%; }
+  50%{ background-position: 100% 50%; }
+  75%{ background-position: 50% 50%; }
+  100%{ background-position: 0% 50%; }
+}
 
 .textcontainer {
   padding: 2% 10%;;
@@ -19,13 +30,38 @@ a {
 
 .container-fluid {
   padding: 0px;
-  /*padding-bottom: 70px;*/
+}
+
+.bg-3 {
+  padding-top: 40px;
+}
+
+.row {
+  margin: auto auto;
+  display: flex;
+  justify-content: center;
+}
+
+.col-sm-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+image {
+  border-radius: 32px;
+  overflow: hidden;
+  width: auto;
+  max-width: 75%;
+  object-fit: scale-down;
+  display: block;
 }
 
 nav {
-  background-color: #dcdcdc;
-  color: #EEE7E8;
+  background-color: #000000;
+  color: #FFFFFF;
   padding: 50px 0px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .navbar-nav {
@@ -37,24 +73,34 @@ nav {
 .nav-title{
   margin-left: 15px;
   margin-right: 15px;
-  color: #000000;
+  color: #FFFFFF;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .nav-link {
-  border: 3px outset #a3a3a3;
+  border: 2px solid #000000;
   border-radius: 20px;
   padding: 10px 30px;
-  background-color: #a3a3a3;
-  color: #EEE7E8;
-  transition: 0.3s;
+  background-color: #FFFFFF;
+  color: #000000 !important;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  font-weight: 400;
 }
 
 .nav-link:hover {
-  border: 3px outset #FFFFFF;
+  border: 2px solid #ff0000;
   border-radius: 20px;
   padding: 10px 30px;
-  background-color: #a3a3a3;
-  transition: 0.3s;
+  background-color: white;
+  color: #ff0000 !important;
+  animation: hueRotate 6s linear infinite;
+}
+
+@keyframes hueRotate {
+  to { filter: hue-rotate(360deg); }
 }
 
 #btn {
@@ -74,10 +120,6 @@ nav {
   transition: 0.3s;
 }
 
-.row {
-  margin: auto auto;
-}
-
 .flexrow {
   display: flex;
   justify-content: space-evenly;
@@ -86,6 +128,28 @@ nav {
 .center-row {
   display: flex;
   justify-content: center;
+}
+
+.center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.about-img {
+  display: block;
+  margin: 16px auto;
+  max-width: 720px; 
+
+  width: 80%; 
+  height: auto; 
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(144,213,255,0.12);
+}
+
+@media (min-width: 900px) {
+  .about-img { width: 50%; }
 }
 
 code {
@@ -102,5 +166,27 @@ code {
 }
 
 #aboutme {
-  padding: 20px;
+  padding: 40px;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #000000;
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  max-width: 800px;
+  text-align: center;
+}
+
+#project-description {
+  padding: 40px;
+  font-size: 20px;
+  line-height: 1.6;
+  color: #000000;
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  max-width: 800px;
+  text-align: left;
 }
