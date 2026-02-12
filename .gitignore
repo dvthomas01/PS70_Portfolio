@@ -1,0 +1,6 @@
+memory-bank/
+.DS_Store
+Fusion_Files/
+*.step
+*.f3d
+*.f3z
