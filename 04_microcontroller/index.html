@@ -24,13 +24,92 @@
 <div class="textcontainer">
 <p class="margin">   </p>
 
-<h3>Week 4: Microcontroller Programming</h3>
+<h2 class="main-header">Microcontroller Programming</h2>
 
-<h4>[Do Something with an arduino]</h4>
+<p class="margin">   </p>
 
+<h4 class="section-header">Fixing Mechanical Issues</h4>
 
+<div class="section-container">
 
+<p>For my week 4 microcontroller project, I decided to keep working on my 6-7 kinetic sculpture and use the ESP32 to program how the motor and motor driver move the 6-7 mechanism. Coming off of week 3, the main things I wanted to fix were mitigating the amount of times the motor slips out of the shaft adapter and finding a way to keep the pegs on the camshaft so slipping occurred less.</p>
 
+<p>First, I needed a way to mount the motor so that, as the motor shaft rotates, the whole motor does not spin in multiple directions and slip out of the shaft adapter. I made a separate sketch and assembled a motor mount so I would not have to hand-hold the motor while it runs. I chose a triangular structure because triangles are stable and resist deforming, and I used wood (instead of cardboard) so the mount would be rigid while the motor was rotating. I sketched the design, laser cut it, assembled it with hot glue, and used M3 screws to mount the motor to the mount.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="assignment 4/mount_sketch.png" alt="Motor mount sketch">
+<img class="project-img" src="assignment 4/motor_mount_assembly.jpeg" alt="Motor mount assembly">
+</div>
+
+<p>Here is a short clip of the motor shaft running with the mount before adding cams:</p>
+
+<div class="center-column">
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="assignment 4/shaft_running_wno_cams.mp4" type="video/mp4">
+</video>
+</div>
+
+<p>Second, I wanted to fix the issue of the motor shaft still slipping out of the cardboard shaft adapter. I noticed quickly that the cardboard adapter was deforming as I was inserting the motor into the entry hole. During runs, you could see the system not working because the motor would come out and slip since the oval-like entry meant for the motor shaft had become more circular. That created too much clearance.</p>
+
+<p>A quick hack I made was using tape to make the shaft more circular and allow it to better fit the hole of the cardboard shaft adapter. The tape reduced the clearance and helped the shaft stay seated.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="assignment 4/tape.jpeg" alt="Tape used to improve shaft fit">
+<img class="project-img" src="assignment 4/tape_around_shaft.jpeg" alt="Tape wrapped around shaft for tighter adapter fit">
+</div>
+
+<p>I also noticed that the camshafts were not keeping contact fully with the pegs, especially for the number 6. The number 7 was fairly stable, but 6 would become unbalanced and rotate out of control. I saw that the guardrails were different lengths, which might have caused a mass distribution problem. I used a bandsaw to cut them down and make them more even. I also cut the dowel sticks holding up the numbers so mass was not too far from the center of mass.</p>
+
+<p>Here is a clip from an earlier attempt where the system was not working reliably:</p>
+
+<div class="center-column">
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="assignment 4/system_not_working.mp4" type="video/mp4">
+</video>
+</div>
+
+</div>
+
+<h4 class="section-header">Circuitry</h4>
+
+<div class="section-container">
+
+<p>Once I got the physical system working better, I moved on to the electronics. The circuitry was simple: I used the ESP32 and a motor driver to control a single motor. I used the D0 and D1 pins on the ESP32 as control signals for the driver.</p>
+
+<div class="center-column">
+<img class="project-img" src="assignment 4/circuitry.jpeg" alt="Circuitry for ESP32 and motor driver">
+</div>
+
+</div>
+
+<h4 class="section-header">Arduino</h4>
+
+<div class="section-container">
+
+<p>My Arduino code was straightforward. I set the control pins to HIGH and used a delay of 4,000 milliseconds (4 seconds). The code and hardware were not overly complex, but they were enough to get the 6-7 motion running consistently.</p>
+
+<div class="center-column">
+<img class="project-img" src="assignment 4/arduino_code.png" alt="Arduino code screenshot">
+</div>
+
+</div>
+
+<h4 class="section-header">Final Result</h4>
+
+<div class="section-container">
+
+<p>After making the mechanical changes, the system worked much better. There was still some rotation within the number 6 camshaft, but it was much more controlled, and I could get reliable results where 6-7 was truly 6-7. With that, my mechanism is now motorized, microcontrolled, and complete.</p>
+
+<div class="center-column">
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="assignment 4/system_working.mp4" type="video/mp4">
+</video>
+</div>
+
+<div class="image-grid-2">
+<img class="project-img" src="assignment 4/final_view_1.jpeg" alt="Final system view 1">
+<img class="project-img" src="assignment 4/final_view_2.jpeg" alt="Final system view 2">
+</div>
 
 </div>
 </xmp>
