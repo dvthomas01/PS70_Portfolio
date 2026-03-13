@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
 
 <title>PS70: Intro to Digital Fabrication </title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -9,7 +10,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
     <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
+      <h2 class="nav-title">PS70 Spring 2026</h2>
     </div>
     <div class="navbar-nav">
       <h4><a class="nav-link" href="../index.html">Home</a></h4>
@@ -24,17 +25,126 @@
 <div class="textcontainer">
 <p class="margin"></p>
 
-<h3>Final Project: Arduino Customizable Led Picture Frame</h3>
-<div class="center-column">
-<p id="project-description">
-I want my final project to be a form of room augmentation, something that adds to my space but is also portable so I can use it wherever I go. I struggled to settle on a single utility because there are so many possibilities, which led me to a different idea. Instead of designing one fixed function, I wanted to make something customizable and open-ended.
+<h2 class="main-header">Final Project: Customizable LED Picture Frame</h2>
 
-The project is a customizable Arduino LED picture frame. The frame would be a standard 24 by 36 inches and filled with an LED grid. Each LED section would be separated by a laser cut grid made from one-eighth-inch basswood or possibly a 3D printed structure, with a diffuser layer placed over the grid to evenly disperse the light.
+<h4 class="section-header">Overview</h4>
 
-An Arduino would control the LEDs, allowing a user to connect their laptop or device and upload scripts that define what is displayed. These scripts could generate flowing light patterns, static designs such as drawings, or full animations that span the entire 24 by 36 inch frame.
+<div class="section-container">
 
-The core appeal of this project is its customizability and open-ended nature. The picture frame is not tied to a single purpose. Depending on how I want to style my room or what I want displayed on the wall, the frame can be completely transformed through a simple script upload, making it both personal and reusable.
-</p>
+<p>I want my final project to be a form of room augmentation: a large, poster-sized LED "picture frame" that can display animations, drawings, and patterns. The core idea is open-ended customization: instead of one fixed function, the frame can be transformed by uploading different scripts/animations.</p>
+
+<p>The physical format is a standard <b>24 x 36 inch</b> frame filled with an LED grid. A diffuser layer spreads light evenly, and a divider grid (laser-cut or 3D printed) separates pixels/sections for cleaner visuals.</p>
+
+<p>Instead of an Arduino, I plan to use an <b>ESP32</b> so I can have stronger control and enable wireless updates (Wi-Fi/Bluetooth), making it easier to upload animations without relying on USB every time.</p>
+
+</div>
+
+<h4 class="section-header">Design Considerations</h4>
+
+<div class="section-container">
+
+<ul>
+<li><b>Controller placement:</b> deciding whether the microcontroller lives outside the frame or inside the frame in its own enclosure (heat protection and safety).</li>
+<li><b>Weight + mounting:</b> keeping materials light enough that the whole system can hang on a wall reliably.</li>
+<li><b>LED wiring strategy:</b> connecting multiple LED strips so they can be powered and controlled effectively from the ESP32 (including power injection and clean data routing).</li>
+</ul>
+
+</div>
+
+<h4 class="section-header">Current 3D Model</h4>
+
+<div class="section-container">
+
+<div class="image-grid-3">
+<img class="project-img" src="../05_3Ddesign/final_project_poster_1.png" alt="Final project CAD: frame model view 1">
+<img class="project-img" src="../05_3Ddesign/final_project_poster_2.png" alt="Final project CAD: LED grid layout">
+<img class="project-img" src="../05_3Ddesign/final_project_poster_3.png" alt="Final project CAD: frame with diffuser view">
+</div>
+
+<p class="caption">Current CAD progress: frame concept, LED grid layout, and diffuser/frame assembly views.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="../05_3Ddesign/final_project_look_at%20_pixels.png" alt="Final project CAD: close-up of pixels">
+<img class="project-img" src="../05_3Ddesign/final_project_parametric_values.png" alt="Final project CAD: parametric values">
+</div>
+
+<p class="caption">Close-up of pixel layout and a snapshot of my parametric values.</p>
+
+</div>
+
+<h4 class="section-header">Bill of Materials (Draft MVP)</h4>
+
+<div class="section-container">
+
+<p><b>Electronics</b></p>
+<ul>
+<li>ESP32 development board</li>
+<li>USB cable for programming</li>
+<li>330 ohm resistor (data line protection)</li>
+<li>1000 uF capacitor (power stabilization)</li>
+</ul>
+
+<p><b>LED System</b></p>
+<ul>
+<li>2x rolls WS2812B LED strip (5 m, 60 LED/m)</li>
+<li>3-pin JST LED connectors</li>
+<li>22 AWG wire (for LED power and data lines)</li>
+</ul>
+
+<p><b>Power</b></p>
+<ul>
+<li>5 V 20 A LED power supply</li>
+<li>AC power cable</li>
+<li>DC screw terminal / barrel connector</li>
+</ul>
+
+<p><b>Diffuser</b></p>
+<ul>
+<li>1x frosted acrylic sheet (24 x 36 in, ~3 mm thick)</li>
+</ul>
+
+<p><b>Divider Grid (3D Printed)</b></p>
+<ul>
+<li>1 spool black PLA filament</li>
+<li>3D printed pixel divider modules (tile pieces forming the grid)</li>
+</ul>
+
+<p><b>Frame / Structure</b></p>
+<ul>
+<li>Wooden frame pieces (for 24 x 36 poster frame)</li>
+<li>1/2-inch plywood backing board (24 x 36)</li>
+<li>Wood screws</li>
+<li>Wood glue</li>
+</ul>
+
+<p><b>Mounting</b></p>
+<ul>
+<li>French cleat wall mount</li>
+<li>Small standoffs for mounting electronics</li>
+</ul>
+
+<p><b>General Hardware</b></p>
+<ul>
+<li>M3 screws or small machine screws</li>
+<li>Heat shrink tubing</li>
+<li>Zip ties or cable clips for wire management</li>
+</ul>
+
+<p>This list is a draft and will be finalized after MVP prototyping and TA feedback.</p>
+
+</div>
+
+<h4 class="section-header">Timeline (Current Plan)</h4>
+
+<div class="section-container">
+
+<ul>
+<li><b>Week of March 16:</b> start MVP prototyping and test feasibility (LED strip control, wiring approach, controller placement).</li>
+<li><b>Following weeks:</b> get feedback from TAs/peers and refine design decisions.</li>
+<li><b>After feedback:</b> finalize bill of materials and request/order materials.</li>
+<li><b>Build phase:</b> assemble the full frame, diffuser, divider grid, power system, and electronics; iterate until stable and presentable.</li>
+</ul>
+
 </div>
 
 </div>

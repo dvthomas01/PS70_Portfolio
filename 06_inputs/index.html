@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
 
 <title>PS70: Intro to Digital Fabrication </title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -9,7 +10,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
     <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
+      <h2 class="nav-title">PS70 Spring 2026</h2>
     </div>
     <div class="navbar-nav">
       <h4><a class="nav-link" href="../index.html">Home</a></h4>
@@ -24,11 +25,108 @@
 <div class="textcontainer">
 <p class="margin">   </p>
 
-<h3>Week 6: Electronic Inputs</h3>
+<h2 class="main-header">Week 6: Electronic Inputs</h2>
 
-<h4>Assignment 1: Capactive Sensor<h4>
+<p class="margin"></p>
 
-<h4>Assignment 2: [Use + Calibrate Another Sensor]</h4>
+<h4 class="section-header">Capacitive Touch Sensor: Squish / Pinch Pad</h4>
+
+<div class="section-container">
+
+<p>For this capacitive sensor project, I took inspiration from a class assignment where we measured weight using a simple capacitive setup: two copper plates separated by a deformable foam pad. When you press on the pad, the distance between plates decreases, capacitance increases, and the sensor reading changes.</p>
+
+<p>I adapted this idea into a touchpad you can press or pinch. The harder you press (the more the padding compresses), the further the LED progresses through a rainbow-like color sequence. The goal was to make something interactive and fun: try to control your force to hold a specific color.</p>
+
+<div class="image-grid-3">
+<img class="project-img" src="./capacitive_sheets.jpeg" alt="Copper sheets used for the capacitive sensor">
+<img class="project-img" src="./padding_between_sheets.jpeg" alt="Padding between copper sheets">
+<img class="project-img" src="./squish_mechanism_1.jpeg" alt="Squish mechanism concept (view 1)">
+</div>
+
+<p class="caption">Copper plates + padding to create a compressible capacitive touch sensor.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./squish_mechanism_2.jpeg" alt="Squish mechanism concept (view 2)">
+<img class="project-img" src="./circuitry_for_project_1.jpeg" alt="Circuitry setup for the project">
+</div>
+
+<p class="caption">Touchpad build and the overall wiring/circuitry setup.</p>
+
+</div>
+
+<h4 class="section-header">Potentiometer: Sensitivity / Gain Control</h4>
+
+<div class="section-container">
+
+<p>The assignment also required using and calibrating another sensor. I used a potentiometer as a sensitivity (gain) control. Sometimes it was hard to press the touchpad hard enough to reach higher color ranges, so the potentiometer acts like a multiplier that makes the sensor reach those colors with less force.</p>
+
+<p>In code, I read the capacitive value and scale it using the potentiometer percentage. Then I map the resulting value into thresholds that correspond to specific RGB LED colors. I also capped the maximum threshold so readings don't grow unbounded and the LED doesn't behave unpredictably at extreme values.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./POTENTIOMETER_TINKERCAD_SCHEME.png" alt="Potentiometer Tinkercad reference schematic">
+<img class="project-img" src="./RGB_TINKERCAD_SCHEME.png" alt="RGB LED Tinkercad reference schematic">
+</div>
+
+<p class="caption">Tinkercad reference schematics I used to confirm wiring for the potentiometer and 4-pin RGB LED.</p>
+
+</div>
+
+<h4 class="section-header">Integration, Code, and Demo</h4>
+
+<div class="section-container">
+
+<p>I built the project in modules first (RGB LED, potentiometer, then capacitive sensing) and then integrated them. The final behavior is: press the touchpad to move through colors, and use the potentiometer to make the sensor more or less sensitive.</p>
+
+<p>One issue I noticed is that with too much gain, the sensor could jump to mid-range colors even without pressing. If I revise this, I would tune thresholds and add a clearer baseline/off region so it stays off (or at red) until I'm actively pressing.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./full_picture_of_project_1.jpeg" alt="Full picture of the final project setup (view 1)">
+<img class="project-img" src="./full_picture_of_project_2.jpeg" alt="Full picture of the final project setup (view 2)">
+</div>
+
+<p class="caption">Full project setup with capacitive touchpad, potentiometer, and RGB LED indicator.</p>
+
+<div class="center-column">
+<video class="project-img" controls>
+  <source src="./demo_of_project.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</div>
+
+<p class="caption">Demo: pressing the capacitive pad changes color, and the potentiometer adjusts sensitivity.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./arduino_code_1.png" alt="Arduino code snippet (version 1)">
+<img class="project-img" src="./arduino_code_2.png" alt="Arduino code snippet (version 1 continued)">
+</div>
+
+<div class="image-grid-2">
+<img class="project-img" src="./arduino_class_structure_code_1.png" alt="Refactored class-based code (part 1)">
+<img class="project-img" src="./arduino_class_structure_code_2.png" alt="Refactored class-based code (part 2)">
+</div>
+
+<p class="caption">Code screenshots: initial Arduino implementation and a refactor using class structure.</p>
+
+</div>
+
+<h4 class="section-header">Bonus: Jedi Knight DXF Inspiration</h4>
+
+<div class="section-container">
+
+<p>I also found a detailed Jedi Knight silhouette design that I want to use later as CNC/room art inspiration. I did not design this file; I found it on DXF4CNC.</p>
+
+<div class="center-column">
+<img class="project-img" src="./Jedi%20Knight%20on%20the%20Moon/Jedi%20Knight%20on%20the%20Moon.jpg" alt="Jedi Knight on the Moon silhouette preview">
+</div>
+
+<ul>
+<li><b>Source:</b> <a href="https://www.dxfforcnc.com/products/awaken-the-force-free-jedi-knight-moon-silhouette-dxf">DXF4CNC listing</a></li>
+<li><b>DXF:</b> <a download href="./Jedi%20Knight%20on%20the%20Moon/Jedi%20Knight%20on%20the%20Moon.dxf">Download DXF</a></li>
+<li><b>PDF:</b> <a download href="./Jedi%20Knight%20on%20the%20Moon/Jedi%20Knight%20on%20the%20Moon.pdf">Download PDF</a></li>
+<li><b>SVG:</b> <a download href="./Jedi%20Knight%20on%20the%20Moon/Jedi%20Knight%20on%20the%20Moon.svg">Download SVG</a></li>
+</ul>
+
+</div>
 
 </div>
 </xmp>

@@ -8,3 +8,6 @@ Fusion_Files/
 *.ai
 *.mov
 *.MOV
+05_3Ddesign/*.ply
+06_inputs/demo_of_project_with_audio.mp4
+!06_inputs/Jedi\ Knight\ on\ the\ Moon/Jedi\ Knight\ on\ the\ Moon.dxf
