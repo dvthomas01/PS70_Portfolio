@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
 
 <title>PS70: Intro to Digital Fabrication </title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -9,7 +10,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
     <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
+      <h2 class="nav-title">PS70 Spring 2026</h2>
     </div>
     <div class="navbar-nav">
       <h4><a class="nav-link" href="../index.html">Home</a></h4>
@@ -22,14 +23,174 @@
 <body>
 <xmp style="display:none;">
 <div class="textcontainer">
-<p class="margin">   </p>
+<p class="margin"></p>
 
-<h3>Week 7: Electronic Outputs</h3>
+<h2 class="main-header">Week 7: Electronic Outputs</h2>
 
+<p class="margin"></p>
 
+<h4 class="section-header">Assignment: MVP for the LED Picture Frame</h4>
 
-<h4>Assignment: Minimum Viable Product for Final Project</h4>
+<div class="section-container">
 
+<p>For this week I treated the assignment as a serious slice of my <a href="../13_finalproject/index.html">final project</a>: a smaller ESP32-driven addressable LED grid with a real enclosure, and firmware I wrote that ties an input path to light output—with timing split the way my stack actually works (see below).</p>
+
+<p><b>What I built:</b> a <b>7×8</b> grid (<b>56</b> WS2812-class pixels) on a <b>3D-printed PLA</b> frame, wired in a <b>serpentine</b> pattern so my microcontroller still sees one logical strip. A <b>frosted acrylic</b> diffuser sits in a dedicated slot. The <b>output device</b> is the LED chain; the <b>input path</b> in this MVP is <b>not a physical button or sensor</b>—it is <b>Wi-Fi / HTTP</b>: my ESP32 runs a small web server, and my phone app sends JSON animations and commands (<i>/animation</i>, <i>/play</i>, <i>/pause</i>, brightness, and so on). A physical control could be added later if the course wants a wired sensor; here the “sensor” is the network request body and route.</p>
+
+</div>
+
+<h4 class="section-header">Frame Design: CAD That Looked Fine Until Reality</h4>
+
+<div class="section-container">
+
+<p>My first frame design made sense in CAD but was not a good MVP: it was <b>too large</b> for the time I had (too many LEDs to solder for a first prototype), and I had not left enough room for the <b>acrylic slot</b> or for <b>wire routing</b> above the strips. I redesigned the frame so that (1) the base had enough space for the strips and clearance for jumpers between rows, (2) the <b>divot depth matched the acrylic sheet</b> so the diffuser could press in cleanly, and (3) the back had a small <b>pocket for the breadboard</b> so the assembly read as one display instead of a grid with electronics hanging off the side.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./oirginal_cad_frame_1.png" alt="Original frame CAD concept (iteration 1)">
+<img class="project-img" src="./original_cad_frame_2.png" alt="Original frame CAD (iteration 1, second view)">
+</div>
+
+<p class="caption">First frame iteration: workable in software, too heavy for a quick prototype and missing practical slot and wiring room.</p>
+
+<div class="image-grid-3">
+<img class="project-img" src="./cad_frame_1.png" alt="Updated 3D-printed frame CAD view 1">
+<img class="project-img" src="./cad_frame_2.png" alt="Updated 3D-printed frame CAD view 2">
+<img class="project-img" src="./cad_frame_3.png" alt="Updated 3D-printed frame CAD view 3">
+</div>
+
+<p class="caption">Redesigned frame: strip footprint, acrylic groove, and rear pocket for the breadboard.</p>
+
+</div>
+
+<h4 class="section-header">Wiring the Grid: Serpentine Layout and Soldering Lessons</h4>
+
+<div class="section-container">
+
+<p>After printing the frame and measuring, I settled on <b>7×8</b> pixels. I cut eight strip segments and soldered them <b>in series</b> in a <b>serpentine</b> pattern so the physical grid is easy to pack into the frame while my firmware still treats the chain as a single linear index (I keep the serpentine-to-strip-index mapping on the ESP32, not in the app—more on that in the app section).</p>
+
+<p>Soldering taught me a hard lesson: a few joints were rough enough that stress pulled at the <b>copper pads</b> on the flex PCB, and one segment became unusable. I had to <b>remove that piece</b> and splice in a <b>replacement strip</b> to keep the series chain intact. The takeaway is to keep strips <b>relieved of tension</b> and avoid angles that tug on the wires—at full scale I will need a cleaner strategy for mass interconnect, not just hand-soldered jumpers everywhere.</p>
+
+<div class="center-column">
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="./video/grid_first_moments_working.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</div>
+
+<p class="caption">Proof of the LED grid's ability to turn on and light up a sketch. Currently, the sketch is malformed because I didn't account for the serpentine chain.</p>
+
+<p>More clips of the same <b>bare grid</b> (no diffuser yet) as I tried additional sketches and animations.</p>
+
+<div class="image-grid-2">
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="./video/animation_starts_working_1.mp4" type="video/mp4">
+</video>
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="./video/animation_starts_working_2.mp4" type="video/mp4">
+</video>
+</div>
+
+<p class="caption">Sketches and animations running on the 7×8 grid.</p>
+
+</div>
+
+<h4 class="section-header">Diffuser and First On-Grid Sketch</h4>
+
+<div class="section-container">
+
+<p>I laser-cut acrylic to fit the frame opening and <b>sanded / frosted</b> it so the point LEDs read as soft tiles instead of harsh dots.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./acrylic_cut_diffuser.jpeg" alt="Frosted acrylic diffuser piece">
+<img class="project-img" src="./first_pattern_sktech.png" alt="Early pattern sketch for the LED grid">
+</div>
+
+<p class="caption">Diffuser piece and an early idea for what I wanted the grid to show once software and content caught up.</p>
+
+<p>Once the frosted acrylic was in front of the pixels, the look changed from “individual dots” to something closer to a tiled display. These clips are the same grid with patterns running behind the diffuser.</p>
+
+<div class="image-grid-3">
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="./video/frost_acrylic_animation_1.mp4" type="video/mp4">
+</video>
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="./video/frost_acrylic_animation_2.mp4" type="video/mp4">
+</video>
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="./video/frost_acrylic_animation_3.mp4" type="video/mp4">
+</video>
+</div>
+
+<p class="caption">On the left is a blinking heart. In the middle is Pac-Man. On the right is a starry night animation.</p>
+
+</div>
+
+<h4 class="section-header">Firmware: Class-Based Playback Without <i>delay()</i></h4>
+
+<div class="section-container">
+
+<p>Manually re-flashing every sketch would not feel like a product. The harder (and more final-project-shaped) move was to keep a <b>stable firmware core</b> on my ESP32 and drive it over the network. Playback timing is intentionally <b>non-blocking</b>: the main animation path uses <i>millis()</i> in an <i>AnimationEngine::tick()</i> method, not <i>delay()</i>, so <i>loop()</i> can still service Wi-Fi and HTTP. (A short <i>delay()</i> in <i>setup()</i> for Serial is separate; the assignment point is that the animation loop is timed with <i>millis()</i>.)</p>
+
+<p>My firmware uses a global <i>AnimationEngine</i> instance called <i>engine</i>. Public methods include <i>begin</i>, <i>loadAnimation</i>, <i>play</i>, <i>pause</i>, <i>stop</i>, <i>clearDisplay</i>, <i>setBrightness</i>, <i>setProfile</i>, and <i>tick</i>, plus getters for state and frame index. <i>tick()</i> compares the current time to <i>_lastFrameTime</i> and only advances when <i>1000 / fps</i> milliseconds (integer division) have elapsed, then renders and calls <i>show()</i> on the NeoPixel strip. Private helpers handle <i>renderFrame</i>, mapping logical pixels to physical indices (including my serpentine layout), and strip reinitialization after profile changes.</p>
+
+<div class="center-column">
+<img class="project-img" src="./AnimationEngine_code_snippet.png" alt="AnimationEngine firmware code snippet">
+</div>
+
+<p class="caption">Screenshot from firmware: <i>AnimationEngine</i> and non-blocking frame timing.</p>
+
+</div>
+
+<h4 class="section-header">Companion App: Preview, Library, and Push to the Board</h4>
+
+<div class="section-container">
+
+<p>I wanted the same “pick an effect in an app” feel as my Govee lights at home, so I built a <b>React Native (Expo)</b> app: one codebase I can run in Expo Go while iterating. I designed it <b>after</b> I had a working HTTP API on the ESP32—otherwise I would have been guessing at the wire format. The app is intentionally a <b>thin client</b>: it creates or loads animation JSON, shows a preview, and sends the same payloads my firmware already parses.</p>
+
+<p><b>How I push sketches to the board:</b> I save the ESP’s LAN base URL in AsyncStorage (Settings) and normalize it (e.g. prepend <i>http://</i> if I typed only the IP). Every action is a plain <b>HTTP</b> call on my home Wi-Fi: I <b>POST</b> the raw animation JSON string to <i>/animation</i> to load a clip, then I hit <i>/play</i>, <i>/pause</i>, <i>/stop</i>, <i>/clear</i>, or <i>/brightness</i> as needed. I wrapped <i>fetch</i> with a timeout so a wrong IP fails fast instead of hanging. The Control screen is where I paste or generate JSON and send it; the command log (below) is my quick sanity check that requests actually fired.</p>
+
+<p><b>Serpentine vs what the app sends:</b> I do <b>not</b> duplicate serpentine math in the phone UI. Every frame is a <b>row-major</b> list of <i>[R, G, B]</i> triples: index 0 is top-left, then across the row, then down—exactly what my <i>AnimationEngine</i> expects as a logical grid. When I render a frame to the strip, my firmware maps each logical cell to the correct physical LED index for the way I soldered the zig-zag chain. That way the preview grid on my phone lines up with “what I mean” by row and column, and the ESP32 remains the single source of truth for wiring order.</p>
+
+<p><b>Photo (and GIF) to sketch:</b> Still images go through Expo’s image picker, then I crop to the grid aspect ratio and resize to my width×height so one screen pixel lines up with one LED. React Native does not give me a built-in “read every pixel from an image” API, so I load a small hidden <b>WebView</b> with inline HTML/Canvas: I pass the image as base64, draw it, and read back RGB samples. Animated GIFs take a similar path but the page decodes frames and delay timing so I can build a multi-frame animation with an approximate <i>fps</i>. From there I package the same <i>version</i> / <i>config</i> / <i>frames</i> structure as hand-written JSON, preview it on <b>LedGrid</b> with the same nominal frame interval as my firmware, and either <b>send</b> it to my grid or <b>save</b> it to the on-phone gallery for later.</p>
+
+<p>Besides Control and Import, I added <b>Preview</b> (load JSON and scrub frames), <b>Gallery</b> (saved animations with send/delete), and <b>Settings</b>. I skipped a heavy navigation library for this version—just tab state in the root component—so the project stays easy for me to maintain.</p>
+
+<div class="center-column">
+<video class="project-img" controls muted playsinline preload="metadata">
+  <source src="./video/preview_section_app.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</div>
+
+<p class="caption">Screen recording: Preview tab stepping through a pattern before sending it to the board.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./control_interface_app.PNG" alt="LED Poster app: control screen">
+<img class="project-img" src="./picture_upload_app.PNG" alt="LED Poster app: import / upload flow">
+</div>
+
+<div class="image-grid-2">
+<img class="project-img" src="./saved_sketch_page_app.PNG" alt="LED Poster app: saved sketches gallery">
+<img class="project-img" src="./command_log_app.jpeg" alt="LED Poster app: command log">
+</div>
+
+<p class="caption">Control, import, gallery, and request log—the four screens I wanted documented for this week.</p>
+
+</div>
+
+<h4 class="section-header">Time Domain: How My Stack Schedules Light</h4>
+
+<div class="section-container">
+
+<p>There are <b>two different time scales</b> in my build, and I keep them separate in my head so I do not mix up “LED protocol speed” with “animation FPS.” Both come straight from how I wired the libraries and wrote <i>AnimationEngine</i>—not from fabricated measurements.</p>
+
+<p><b>LED wire protocol (fast, driver-defined):</b> When my firmware calls <i>show()</i>, the NeoPixel library shifts the current RGB values out on the data pin using WS2812-class timing. In my firmware I use <b><i>NEO_KHZ800</i></b> (800 kHz class one-wire bit timing in the Adafruit stack). That governs how long it takes to <b>clock one frame of pixel data</b> down my strip. It is <b>not</b> the same thing as “how fast my animation runs.”</p>
+
+<p><b>Animation frame rate (slow, software-scheduled):</b> How often the <b>picture</b> changes comes from the animation JSON <i>fps</i> field and from my <i>AnimationEngine::tick()</i>. The engine uses <i>millis()</i> and only advances when at least <i>1000 / fps</i> milliseconds have passed (integer division), so—for example—2 fps nominally means about 500 ms between frame changes for me. That cadence is <b>not</b> a dedicated hardware display clock; my <i>loop()</i> also runs Wi-Fi and HTTP, so in practice I get “at least every interval ms,” with possible <b>jitter</b> when the CPU is busy.</p>
+
+<p><b>Summary:</b> The strip protocol defines how pixel bits leave my MCU when I update the chain; <i>fps</i> plus <i>millis()</i> define how often I decide to call <i>show()</i> with a new frame. My app preview uses the same nominal <i>fps</i> so my phone and my board agree on intent, even though only my ESP32 drives the NeoPixel line.</p>
+
+</div>
 
 </div>
 </xmp>

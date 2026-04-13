@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta charset="UTF-8">
 
 <title>PS70: Intro to Digital Fabrication </title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -9,7 +10,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
     <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
+      <h2 class="nav-title">PS70 Spring 2026</h2>
     </div>
     <div class="navbar-nav">
       <h4><a class="nav-link" href="../index.html">Home</a></h4>
@@ -22,11 +23,94 @@
 <body>
 <xmp style="display:none;">
 <div class="textcontainer">
-<p class="margin">   </p>
+<p class="margin"></p>
 
-<h3>Week 8: CNC Milling</h3>
+<h2 class="main-header">Week 8: CNC Machining</h2>
 
-<h4>Assignment: Make Something With CNC</h4>
+<p class="margin"></p>
+
+<h4 class="section-header">Assignment: CNC and Post Processing</h4>
+
+<div class="section-container">
+
+<p>This week’s brief was to <b>design something and make it on CNC</b>, then <b>post process</b> it through a follow on process such as molding and casting, vacuum forming, or composites. I completed the <b>ShopBot</b> cut on <b>1/2 inch MDF</b>. My <b>molding step is still in progress</b>: I 3D printed a smaller stand in model to fit a mold box, but I have not poured the mold yet. I will update this page when I do.</p>
+
+</div>
+
+<h4 class="section-header">Concept: Hidden Leaf Headband</h4>
+
+<div class="section-container">
+
+<p>I wanted this week’s part to feel personal, not random stock geometry. Anime was a big part of how I grew up, and <b>Naruto</b> was one of the first shows that really stuck with me. In that world, ninjas wear <b>ninja headbands</b> stamped with their village symbol. Naruto is from the <b>Hidden Leaf</b>, so his metal plate shows the leaf emblem. I decided to CNC that emblem as a headband style plaque: a tribute to something that mattered to me, not just a test shape.</p>
+
+<div class="center-column">
+<img class="project-img" src="./headband_reference.png" alt="Reference image for the Hidden Leaf headband symbol">
+</div>
+
+<p class="caption">Reference I started from (Hidden Leaf symbol, headband plate).</p>
+
+</div>
+
+<h4 class="section-header">From Reference to Toolpath: Illustrator Trace, Not Hand Splines</h4>
+
+<div class="section-container">
+
+<p>I first tried to redraw the plate in <b>Fusion</b> from scratch. The real prop is <b>curved</b> and full of <b>organic</b> bumps and fillets that are awkward to capture as clean parametric CAD. Chasing every tangent by hand with splines would have eaten the whole week. Instead I took my reference into <b>Adobe Illustrator</b>, used <b>Image Trace</b> to vectorize the artwork, and exported an <b>SVG</b>. From there I converted to <b>DXF</b> for the ShopBot workflow.</p>
+
+<div class="center-column">
+<img class="project-img" src="./svg_traceout_headband.png" alt="Vector trace of the headband artwork from Illustrator">
+</div>
+
+<p class="caption">Traced vector artwork (screenshot of the SVG trace result) before DXF export.</p>
+
+</div>
+
+<h4 class="section-header">ShopBot: Setup, Cut versus Engrave, and MDF Run</h4>
+
+<div class="section-container">
+
+<p>Uploading the DXF was only the start. Learning which ShopBot operations meant <b>through cut</b> versus <b>engrave</b>, how to set a shallow depth for the “etched” areas so it read like the show, and how the control software wanted geometry grouped took <b>time and trial and error</b>. Once I was happy with the toolpath preview, I fixtured <b>1/2 inch MDF</b> and ran the job. It ran long enough that I had to be patient, but when the spindle finished, the plate was clearly readable as the Leaf symbol.</p>
+
+<div class="center-column">
+<img class="project-img" src="./web/shopbot_visualize_cutout.jpg" alt="ShopBot toolpath or preview of the headband cut">
+</div>
+
+<p class="caption">ShopBot preview, setup snapshot from my cut.</p>
+
+</div>
+
+<h4 class="section-header">Result, Defects, and Finish</h4>
+
+<div class="section-container">
+
+<p>Overall I was <b>happy with the cut</b>. The main imperfections I noticed were in the <b>small circular engravings at the four corners</b>: the design expects little <b>raised points</b> inside those rings. On my board, the <b>two features on the right side</b> lost those tips. The cutter clipped them. I am treating that as a lesson in how fine engraving detail translates to a given tool diameter and depth, not a reason to scrap the piece.</p>
+
+<p>After the machine stopped, I <b>sanded the outer profile</b> to soften the corners and clean up fuzz from the MDF fibers. That was enough for a display piece I am proud to keep on the shelf.</p>
+
+<div class="center-column">
+<img class="project-img" src="./web/headband_final_product.jpg" alt="Finished CNC headband plaque on MDF after sanding">
+</div>
+
+<p class="caption">Finished MDF headband plaque after sanding.</p>
+
+</div>
+
+<h4 class="section-header">Post Processing Plan: Mold (Not Finished Yet)</h4>
+
+<div class="section-container">
+
+<p>The assignment also asked for a <b>post process</b>. I originally wanted a <b>mold and cast</b> taken from the <b>CNC master</b>, but the routed plaque is <b>too large</b> for the containers I had available. I could not see a clean way to build a flask around it without custom boxing I did not have time for.</p>
+
+<p>My workaround is a <b>smaller surrogate positive</b>: I found a <b>headband plate 3D model</b> online, <b>scaled it down</b> so it would fit inside a standard mold container, and <b>3D printed</b> it. That print is meant to become the geometry I <b>block mold</b> or otherwise cast against once I mix and pour material. The print is <b>much smaller</b> than the ShopBot piece, which should make the molding step more manageable when I get to it.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./web/cnc_vs_print_size.jpg" alt="CNC headband next to smaller 3D print for molding">
+<img class="project-img" src="./web/3d_printed_headband.jpg" alt="Small 3D printed headband model for future mold">
+</div>
+
+<p class="caption">Scale comparison: full CNC plaque versus the printed mini model I plan to mold. I will add mold and cast photos here after I run that step.</p>
+
+</div>
 
 </div>
 </xmp>
