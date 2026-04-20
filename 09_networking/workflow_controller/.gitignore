@@ -1,0 +1,18 @@
+# Local secrets (never commit)
+firmware/secrets.h
+firmware/workflow_controller/secrets.h
+
+# Python
+host/.venv/
+host/venv/
+__pycache__/
+*.py[cod]
+.Python
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+
+# Local Cursor / agent context (never commit)
+memory-bank/

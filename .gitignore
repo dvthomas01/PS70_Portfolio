@@ -1,4 +1,5 @@
-memory-bank/
+# Project-wide Cursor memory bank at repo root only (not nested copies).
+/memory-bank/
 .DS_Store
 Fusion_Files/
 *.step
