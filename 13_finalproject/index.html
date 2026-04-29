@@ -147,6 +147,113 @@
 
 </div>
 
+---
+
+<h2 class="main-header">Progress Update</h2>
+
+<p>With the MVP validated, the two main milestones for reaching the final version were: <b>building the full-size frame</b> (scaled up from the MVP) and <b>wiring all 1,536 LEDs</b> onto that frame so the existing app and sketch software could drive the complete grid. Here is how that went.</p>
+
+<h4 class="section-header">Frame Attempt 1: MDF + Lamination</h4>
+
+<div class="section-container">
+
+<p>My first instinct was to use <b>MDF</b> for the frame. Based on the spacing and dimensions from my MVP, I needed a piece at least <b>24 × 12 inches</b> and <b>1 inch thick</b>. The length and width were fine, but 1-inch MDF stock was not available in the lab. The workaround was to cut thinner pieces and <b>laminate them together</b> with wood glue until I reached the thickness I needed.</p>
+
+<p>I grabbed raw MDF sheet stock, used a <b>cordless jigsaw</b> to cut the pieces to size, then clamped and glued them into a single laminated blank.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./process/cordless_jigsaw_for_mdf.jpg" alt="Cordless jigsaw used to cut MDF pieces">
+<img class="project-img" src="./process/cutting_out_mdf_to_laminate.jpg" alt="Cutting MDF pieces to laminate">
+</div>
+<p class="caption">Cutting MDF down to size with a cordless jigsaw before laminating.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./process/laminated_mdf_1.jpg" alt="Laminated MDF piece after gluing — view 1">
+<img class="project-img" src="./process/laminated_mdf_2.jpg" alt="Laminated MDF piece after gluing — view 2">
+</div>
+<p class="caption">Laminated MDF blank after gluing, clamped and drying.</p>
+
+<p>Right before committing this blank to the ShopBot, I thought hard about what MDF machining actually produces: <b>a huge amount of saw dust and residue</b>. That dust would clog up the ShopBot bed, risk fouling the spindle, and leave the cut quality worse than I wanted. I decided to find a cleaner path.</p>
+
+</div>
+
+<h4 class="section-header">Frame Attempt 2: Laser-Cut Plywood, Layer by Layer</h4>
+
+<div class="section-container">
+
+<p>Instead of subtractive machining from a thick MDF blank, I switched to a <b>layer-by-layer additive approach</b>: take the 3D model of the frame, slice it into <b>6 mm cross-sections</b>, laser cut each cross-section from plywood, then <b>stack and bolt</b> the layers together with <b>four M5 screws</b> to form the complete frame body.</p>
+
+<div class="center-column">
+<img class="project-img" src="./process/3d_model_of_updated_laser_cut_frame.png" alt="Updated 3D model sliced for laser cutting">
+</div>
+<p class="caption">Updated 3D model of the frame redesigned for 6 mm laser-cut plywood layers.</p>
+
+<p>This approach was faster and much cleaner than a long ShopBot job. The catch was that <b>each layer was itself an assembly</b>: every individual cut piece had to be aligned and glued carefully before the next layer went on top. Getting the alignment right took trial and error — if anything was even slightly off, later layers would not seat flush. Eventually I worked out a consistent process and the full frame came together without any jagged edges or gaps.</p>
+
+</div>
+
+<h4 class="section-header">Power System: Planning for 300 W</h4>
+
+<div class="section-container">
+
+<p>Once the frame was assembled, I started wiring up the LEDs and thinking hard about power. Each of my six <b>[WS2812B 16×16 LED panels](https://www.amazon.com/BTF-LIGHTING-Individual-Addressable-Flexible-Controllers/dp/B088BTYJH6/ref=sr_1_1_sspa?crid=3C2RFHZA8D8GZ&dib=eyJ2IjoiMSJ9.OhXqG8awxm5yksvFszDETbjvvXgkZ9kWHBpRobye2Vs7umYf_8E64zyztOKtjEdpRVJIudSASuMv0wyDM5LZQNJA5i3oL7AjTsJzk14e_aINab2u74mr2mU7kZLGz8Cu5docg1jYy8JQZ0M30S4PsihMohxYezABwbPZMZKXpfadfKSlmCcxFZKQ1_D5M2ocCzbwO64X-UwocLwC7Gc20rnEom4-2Tdyvt_snGtIvUCP0vbFnJGtiyBs0hkQ4mTQ2i8FeKAzRj2YKAA7-F6v-_sSxloo5y7BlNDcosvoJsw.7ULDpSgJakclsORSXbHkEUKp_pVFCC2cdlI18yXaGKY&dib_tag=se&keywords=WS2812B%2Bmatrix%2Bpanels&qid=1775123203&s=hi&sprefix=ws2812b%2Bmatrix%2Bpanels%2Ctools%2C122&sr=1-1-spons&sp_csd=d2lkZ2V0TmFtZT1zcF9hdGY&th=1)</b> can draw up to <b>~50 W</b> at max brightness and full white. That puts worst-case total draw at <b>~300 W</b> — well beyond the 120 W most standard wall adapters are rated for.</p>
+
+<p>I did not want to artificially limit what animations and sketches the frame could display, so I sourced a <b>[300 W 5 V / 60 A AC-DC converter](https://www.amazon.com/ALITOVE-Transformer-Converter-Security-Computer/dp/B06XK3X3PW/ref=sr_1_6?crid=15MXT1SGYA629&dib=eyJ2IjoiMSJ9.ARsgFamqJlleGc2RswveQZTZr1bsa3d8dm7rCKSKsRez9tbZcExVXnmCQKOxsMSFusftJjLetG9VimeT5GOaqMFr3x-k11ZYFDjuTDs4LNblmuLairxRVDheCs2ot3T9q1t-bFQbr_0JQWzEwHPgic5J4ui13TYkLIfN2-CI34K2QpH3vXUW7Ml-7qWHsfBSvHkW6EAOAdRXPAXk1bD11wTPwBCKD7M-VUovstXrdkrr8ykxUKqmV9FJNOcBYXlSGyAT19Fxjq8rDmiA46Bx3tDvccLdkBDciSS5qybNdEw.fNAWhOVIoRJYLiF3QdimQyZlTuKWeiTUeXBESMaS7sk&dib_tag=se&keywords=ALITOVE%2B5V%2B60A%2B300W&qid=1775940465&sprefix=alitove%2B5v%2B60a%2B300w%2Caps%2C164&sr=8-6&th=1)</b>. This style of supply is well-documented in LED projects, so wiring it up was straightforward. Once connected, I confirmed the LEDs lit up and held stable under load.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./process/led_breadboard_power_pipeline.jpg" alt="Power supply and breadboard wiring for LED grid">
+<img class="project-img" src="./process/breadboard_circuit.jpeg" alt="Breadboard circuit connecting ESP32 to LED panels">
+</div>
+<p class="caption">Power supply pipeline and breadboard circuit connecting the AC-DC converter to the ESP32 and LED grids.</p>
+
+</div>
+
+<h4 class="section-header">LED Control: Hitting the Single-Pin Limit and Fixing It</h4>
+
+<div class="section-container">
+
+<p>With power sorted, I ran into a control issue. I assumed I could drive all 1,536 LEDs from a <b>single digital data pin</b> on the <b>ESP32-C3 Xiao</b>. When I tested this, only about <b>~1,450 LEDs</b> would respond correctly — the last 80 or so simply would not light up.</p>
+
+<p>After some digging, the cause was the <b>single-core ESP32-C3's memory and timing limits</b>: refreshing a chain that long saturated what the chip could push through one pin in time. The fix was to <b>split the LED load across two data pins</b> — one pin handles half the grid, the other handles the rest. I also switched from the <b>Adafruit NeoPixel library to FastLED</b>, which gave me finer timing control and resolved the remaining edge cases.</p>
+
+<p>After both changes, all <b>1,536 LEDs respond correctly</b> and can be driven from an external battery source when needed.</p>
+
+<div class="image-grid-2">
+<img class="project-img" src="./process/6_led_grid_connection.jpg" alt="All six 16x16 LED grids connected together">
+<img class="project-img" src="./process/male_female_jst%20connection_between%20led_grids.jpg" alt="Male-female JST connections between LED grid panels">
+</div>
+<p class="caption">All six 16×16 panels daisy-chained via male-female JST connectors.</p>
+
+<div class="center-column">
+<img class="project-img" src="./process/lighting_up_3_grids.jpg" alt="Three LED grids lit up on the power supply">
+</div>
+<p class="caption">Early power test: three panels lighting up successfully off the AC-DC supply.</p>
+
+<div class="center-column">
+<img class="project-img" src="./process/IMG_5368.jpeg" alt="Full LED grid assembly in progress">
+</div>
+<p class="caption">Full 1,536-LED assembly in progress.</p>
+
+</div>
+
+<h4 class="section-header">Where Things Stand + What's Next</h4>
+
+<div class="section-container">
+
+<p>Current status: <b>frame built, power system confirmed, all 1,536 LEDs controlled correctly from the ESP32-C3 via two data pins.</b></p>
+
+<p>Remaining steps to get to a finished product:</p>
+
+<ul>
+<li><b>App refactor:</b> update the companion app (which currently handles sketch uploads and image-to-sketch quantization for the 56-pixel MVP grid) to work with the full 1,536-pixel system.</li>
+<li><b>Wiring cleanup:</b> transition from the prototype breadboard to a solderable perfboard for a cleaner, more permanent circuit.</li>
+<li><b>Finish + mount:</b> paint the frame black, then mount the LED grids to the frame with hot glue or another adhesive.</li>
+</ul>
+
+<p>Progress is on pace. The hard unknowns (power headroom, LED timing limits, frame construction method) are all resolved — what remains is execution and polish.</p>
+
+</div>
+
 </div>
 </xmp>
 </body>
