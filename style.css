@@ -191,6 +191,12 @@ code {
   text-align: left;
 }
 
+/* Portfolio prose: file and folder names without code-block highlighting */
+.doc-path {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.95em;
+}
+
 .main-header {
   text-align: center;
   font-weight: bold;
@@ -216,6 +222,33 @@ code {
   border-radius: 16px;
   margin: 20px 0;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.section-container table {
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  background: #fff;
+}
+
+.section-container table a {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  .section-container table {
+    font-size: 13px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Centered lede under main-header only (e.g. Final Project Progress Update) */
+.progress-update-lede {
+  text-align: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .project-img {
